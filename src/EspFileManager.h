@@ -20,6 +20,8 @@
 #define DEBUG_SERIAL Serial
 #include <ArDebugger.h>
 
+#define LIBRARY_VERSION "1.0.0"
+
 class EspFileManager
 {
 private:

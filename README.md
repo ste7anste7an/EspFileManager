@@ -1,6 +1,6 @@
-# esp32-file-manager
+# EspFileManager
 
-**esp32-file-manager** is a library for creating a web-based file management system on the ESP32 using the Async WebServer library. The library provides a responsive interface that allows users to upload, download, and delete files stored on the ESP32's filesystem.
+**EspFileManager** is a library for creating a web-based file management system on the ESP32 using the Async WebServer library. The library provides a responsive interface that allows users to upload, download, and delete files stored on the ESP32's filesystem.
 
 ## Features
 - **File Management:** Upload, download, and delete files via a web interface.
@@ -16,11 +16,11 @@
 1. Add the library to your `platformio.ini`:
    ```ini
    lib_deps =
-       https://github.com/yourusername/esp32-file-manager
+       https://github.com/arslan437/EspFileManager.git
 
 ## Usage
 
-    #include <esp32_file_manager.h>
+    #include <EspFileManager.h>
 
     void setup() {
     // Initialize file manager
