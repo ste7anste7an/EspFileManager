@@ -1,11 +1,11 @@
 {
-    "name": "esp32-file-manager",
+    "name": "EspFileManager",
     "version": "1.0.0",
     "description": "Web-based file manager for ESP32 file operations.",
-    "keywords": ["ESP32", "WebServer", "File Manager"],
+    "keywords": ["ESP32", "WebServer", "File Manager", "EspFileManager"],
     "repository": {
       "type": "git",
-      "url": "https://github.com/yourusername/esp32-file-manager"
+      "url": "https://github.com/arslan437/EspFileManager.git"
     },
     "authors": [
       {
@@ -15,6 +15,12 @@
       }
     ],
     "frameworks": "arduino",
-    "platforms": "espressif32"
+    "platforms": "espressif32",
+    "export": {
+      "exclude": [
+        "dashboard",           
+        "src/page.h"    
+      ]
+    }
   }
   
