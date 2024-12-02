@@ -19,7 +19,7 @@
        https://github.com/arslan437/EspFileManager.git
 
 ## Usage
-
+    ```arduino
     #include <AsyncTCP.h>
     #include <ESPAsyncWebServer.h>
     #include <SPI.h>
@@ -38,22 +38,22 @@
 
     void setup() 
     {
-    Serial.begin(115200);
+        Serial.begin(115200);
 
-    WiFi.mode(WIFI_STA);
+        WiFi.mode(WIFI_STA);
         WiFi.begin(ST_SSID, ST_PASS);
         while (WiFi.status() != WL_CONNECTED);
         {
             Serial.print(".");
             delay(50);
         }
-    Serial.print("Connected to wifi... \nIP: ");
-    Serial.println(WiFi.localIP());
+        Serial.print("Connected to wifi... \nIP: ");
+        Serial.println(WiFi.localIP());
 
-    FileManager.initSDCard(&SD, MICROSD_SPI_SS_PIN);
-    FileManager.setServer(&server);
+        FileManager.initSDCard(&SD, MICROSD_SPI_SS_PIN);
+        FileManager.setServer(&server);
 
-    server.begin();
+        server.begin();
     }
 
     void loop() 
