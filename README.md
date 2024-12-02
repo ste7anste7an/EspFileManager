@@ -10,7 +10,7 @@
 
 ### Arduino IDE
 1. Navigate to the library manager (Sketch > Include Library > Manage Libraries).
-2. Search for "esp32-file-manager" and install it.
+2. Search for "EspFileManager" and install it.
 
 ### PlatformIO
 1. Add the library to your `platformio.ini`:
@@ -20,14 +20,45 @@
 
 ## Usage
 
+    #include <AsyncTCP.h>
+    #include <ESPAsyncWebServer.h>
+    #include <SPI.h>
+    #include <SD.h>
+    #include <WiFi.h>
+
+
     #include <EspFileManager.h>
 
-    void setup() {
-    // Initialize file manager
+    #define MICROSD_SPI_SS_PIN 5
+    #define ST_SSID "XXXXXXXXXXX"
+    #define ST_PASS "XXXXXXXXXXX"
+
+    AsyncWebServer server(80);
+    EspFileManager FileManager;
+
+    void setup() 
+    {
+    Serial.begin(115200);
+
+    WiFi.mode(WIFI_STA);
+        WiFi.begin(ST_SSID, ST_PASS);
+        while (WiFi.status() != WL_CONNECTED);
+        {
+            Serial.print(".");
+            delay(50);
+        }
+    Serial.print("Connected to wifi... \nIP: ");
+    Serial.println(WiFi.localIP());
+
+    FileManager.initSDCard(&SD, MICROSD_SPI_SS_PIN);
+    FileManager.setServer(&server);
+
+    server.begin();
     }
 
-    void loop() {
-    // Handle file manager tasks
+    void loop() 
+    {
+    
     }
 
 ## Support

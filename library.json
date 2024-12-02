@@ -1,6 +1,6 @@
 {
     "name": "EspFileManager",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "Web-based file manager for ESP32 file operations.",
     "keywords": ["ESP32", "WebServer", "File Manager", "EspFileManager"],
     "repository": {
