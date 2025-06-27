@@ -23,7 +23,8 @@
 
 ## Usage
 
-    ```#include <AsyncTCP.h>
+    ```cpp
+    #include <AsyncTCP.h>
     #include <ESPAsyncWebServer.h>
     #include <WiFi.h>
     #include <LittleFS.h>
