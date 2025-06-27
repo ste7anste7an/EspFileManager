@@ -1,11 +1,9 @@
 #include "EspFileManager.h"
 // #include "page.h"
 #include "webPage.h"
-#include "FS.h"
-#include <SD.h>
-#include "SPI.h"
 
 
+#define _storage LittleFS
 EspFileManager::EspFileManager(/* args */)
 {
 
@@ -16,66 +14,34 @@ EspFileManager::~EspFileManager()
 }
 
 
-bool EspFileManager::initSDCard(fs::SDFS *storage, uint8_t _cs)
+bool EspFileManager::initSDCard()
 {
-    sd_cs = _cs;
-    _storage = storage;
 
-    if (!_storage->begin(sd_cs))
-    // if (!_storage->begin())
+
+    if (!_storage.begin())
+    // if (!_storage.begin())
     {
         DEBUGLF("Card Mount Failed");
         memory_ready = false;
         return false;
     }
 
-    uint8_t cardType = _storage->cardType();
-
-    if (cardType == CARD_NONE)
-    {
-        DEBUGLF("No SD card attached");
-        memory_ready = false;
-        return false;
-    }
-
-    memory_ready = true;
-    DEBUGF("SD Card Type: ");
-    if (cardType == CARD_MMC)
-    {
-        DEBUGLF("MMC");
-    }
-    else if (cardType == CARD_SD)
-    {
-        DEBUGLF("SDSC");
-    }
-    else if (cardType == CARD_SDHC)
-    {
-        DEBUGLF("SDHC");
-    }
-    else
-    {
-        DEBUGLF("UNKNOWN");
-    }
-
+    
     if(memory_ready)
     {
-        // uint32_t cardSize = _storage->cardSize() / (1024 * 1024);
+        // uint32_t cardSize = _storage.cardSize() / (1024 * 1024);
         // DEBUGX("SD Card Size: %lluMB\n", cardSize);
         // DEBUGL2("SD Card Size: ", cardSize);
     }
-    return false;
+    return true;
 }
 
-void EspFileManager::setFileSource(fs::SDFS *storage)
-{   
-    _storage = storage;
-}
 
 void EspFileManager::listDir(const char * dirname, uint8_t levels)
 {
     DEBUGX("Listing directory: %s\n", dirname);
 
-    File root = _storage->open(dirname);
+    File root = _storage.open(dirname);
     if(!root){
         DEBUGLF("Failed to open directory");
         return;
@@ -149,13 +115,13 @@ void EspFileManager::setServer(AsyncWebServer *server)
         if(!index)
         {
             DEBUGX("UploadStart: %s\n", file_path.c_str());
-            if(_storage->exists(file_path)) 
+            if(_storage.exists(file_path)) 
             {
-                _storage->remove(file_path);
+                _storage.remove(file_path);
             }
         }
 
-        File file = _storage->open(file_path, FILE_APPEND);
+        File file = _storage.open(file_path, FILE_APPEND);
         if(file) 
         {
             if(file.write(data, len) != len)
@@ -183,9 +149,9 @@ void EspFileManager::setServer(AsyncWebServer *server)
         }
 
         DEBUGL2("Deleting File: ", path);
-        if (_storage->exists(path)) 
+        if (_storage.exists(path)) 
         {
-            _storage->remove(path);
+            _storage.remove(path);
             request->send(200, "application/json", "{\"status\":\"success\",\"message\":\"File deleted successfully\"}");
         } 
         else 
@@ -206,9 +172,9 @@ void EspFileManager::setServer(AsyncWebServer *server)
             return;
         }
         DEBUGL2("Downloading File: ", path);
-        if (_storage->exists(path)) 
+        if (_storage.exists(path)) 
         {
-            request->send(*_storage, path, String(), true);
+            request->send(_storage, path, String(), true);
         } 
         else 
         {

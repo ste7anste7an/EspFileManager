@@ -7,7 +7,7 @@
  */
 
 #include <Arduino.h>
-#include <SD.h>
+#include <LittleFS.h>
 
 #ifdef ESP32
 #include <AsyncTCP.h>
@@ -28,7 +28,7 @@ private:
     uint8_t sd_cs, sd_sck, sd_miso, sd_mosi;
     bool memory_ready = false;
     String str_data = "";
-    fs::SDFS *_storage;
+    fs::FS *_storage;
     AsyncWebServer *_server;
 public:
     EspFileManager(/* args */);
@@ -36,8 +36,8 @@ public:
 
     // void begin(AsyncWebServer *server, FS *fs);
 
-    bool initSDCard(SDFS *storage, uint8_t _cs);
-    void setFileSource(SDFS *storage);
+    bool initSDCard();
+
     void listDir(const char * dirname, uint8_t levels);
 
     void setServer(AsyncWebServer *server);
