@@ -16,23 +16,22 @@
 1. Add the library to your `platformio.ini`:
    ```ini
    lib_deps =
-       https://github.com/arslan437/EspFileManager.git
+       ESP32Async/AsyncTCP @ 3.4.4
+       ESP32Async/ESpAsyncWebServer @ 3.7.0
+       https://github.com/ste7anste7an/EspFileManager
+
 
 ## Usage
 
-    ```cpp
-    #include <AsyncTCP.h>
+    ```#include <AsyncTCP.h>
     #include <ESPAsyncWebServer.h>
-    #include <SPI.h>
-    #include <SD.h>
     #include <WiFi.h>
-
+    #include <LittleFS.h>
 
     #include <EspFileManager.h>
 
-    #define MICROSD_SPI_SS_PIN 5
-    #define ST_SSID "XXXXXXXXXXX"
-    #define ST_PASS "XXXXXXXXXXX"
+    #define ST_SSID "asus"
+    #define ST_PASS "Aapnootmies2018"
 
     AsyncWebServer server(80);
     EspFileManager FileManager;
@@ -51,7 +50,7 @@
         Serial.print("Connected to wifi... \nIP: ");
         Serial.println(WiFi.localIP());
 
-        FileManager.initSDCard(&SD, MICROSD_SPI_SS_PIN);
+        FileManager.initSDCard();
         FileManager.setServer(&server);
 
         server.begin();
@@ -59,7 +58,7 @@
 
     void loop() 
     {
-    
+
     }
 
 ## Support
